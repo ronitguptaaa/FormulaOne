@@ -56,6 +56,8 @@
           </relation>
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='constructors' table='[constructors]' type='table' />
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='drivers' table='[drivers]' type='table' />
+          <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops1' table='[pit_stops]' type='table' />
+          <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops' table='[pit_stops]' type='table' />
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='vw_constructordetails' table='[vw_constructordetails]' type='table' />
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='WorldChampionsConstructor' table='[WorldChampionsConstructor]' type='table' />
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='vw_driverdetails' table='[vw_driverdetails]' type='table'>
@@ -64,6 +66,7 @@
             </columns>
           </relation>
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='WorldChampionsDriver' table='[WorldChampionsDriver]' type='table' />
+          <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops2' table='[pit_stops]' type='table' />
           <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='vw_laptimesdata' table='[vw_laptimesdata]' type='table'>
             <columns>
               <column datatype='string' date-parse-format='HH:mm:ss' name='total_time' />
@@ -158,13 +161,25 @@
           <map key='[country]' value='[circuits].[country]' />
           <map key='[dob]' value='[drivers].[dob]' />
           <map key='[driverId (drivers)]' value='[drivers].[driverId]' />
+          <map key='[driverId (pit_stops)]' value='[pit_stops].[driverId]' />
+          <map key='[driverId (pit_stops1)]' value='[pit_stops1].[driverId]' />
+          <map key='[driverId (pit_stops2)]' value='[pit_stops2].[driverId]' />
           <map key='[driverId]' value='[vw_qualifying].[driverId]' />
           <map key='[driverRef]' value='[drivers].[driverRef]' />
           <map key='[driverid]' value='[vw_laptimesdata].[driverid]' />
+          <map key='[duration (pit_stops1)]' value='[pit_stops1].[duration]' />
+          <map key='[duration (pit_stops2)]' value='[pit_stops2].[duration]' />
+          <map key='[duration]' value='[pit_stops].[duration]' />
           <map key='[forename]' value='[drivers].[forename]' />
+          <map key='[lap (pit_stops1)]' value='[pit_stops1].[lap]' />
+          <map key='[lap (pit_stops2)]' value='[pit_stops2].[lap]' />
+          <map key='[lap]' value='[pit_stops].[lap]' />
           <map key='[lat]' value='[circuits].[lat]' />
           <map key='[lng]' value='[circuits].[lng]' />
           <map key='[location]' value='[circuits].[location]' />
+          <map key='[milliseconds (pit_stops1)]' value='[pit_stops1].[milliseconds]' />
+          <map key='[milliseconds (pit_stops2)]' value='[pit_stops2].[milliseconds]' />
+          <map key='[milliseconds]' value='[pit_stops].[milliseconds]' />
           <map key='[name (WorldChampionsConstructor)]' value='[WorldChampionsConstructor].[name]' />
           <map key='[name (constructors)]' value='[constructors].[name]' />
           <map key='[name]' value='[circuits].[name]' />
@@ -177,11 +192,20 @@
           <map key='[q2]' value='[vw_qualifying].[q2]' />
           <map key='[q3]' value='[vw_qualifying].[q3]' />
           <map key='[qualifyId]' value='[vw_qualifying].[qualifyId]' />
+          <map key='[raceId (pit_stops)]' value='[pit_stops].[raceId]' />
+          <map key='[raceId (pit_stops1)]' value='[pit_stops1].[raceId]' />
+          <map key='[raceId (pit_stops2)]' value='[pit_stops2].[raceId]' />
           <map key='[raceId]' value='[vw_qualifying].[raceId]' />
           <map key='[raceid]' value='[vw_laptimesdata].[raceid]' />
           <map key='[statusId]' value='[vw_status].[statusId]' />
           <map key='[status]' value='[vw_status].[status]' />
+          <map key='[stop (pit_stops1)]' value='[pit_stops1].[stop]' />
+          <map key='[stop (pit_stops2)]' value='[pit_stops2].[stop]' />
+          <map key='[stop]' value='[pit_stops].[stop]' />
           <map key='[surname]' value='[drivers].[surname]' />
+          <map key='[time (pit_stops1)]' value='[pit_stops1].[time]' />
+          <map key='[time (pit_stops2)]' value='[pit_stops2].[time]' />
+          <map key='[time]' value='[pit_stops].[time]' />
           <map key='[total_time]' value='[vw_laptimesdata].[total_time]' />
           <map key='[url (circuits)]' value='[circuits].[url]' />
           <map key='[url (constructors)]' value='[constructors].[url]' />
@@ -1268,12 +1292,278 @@
             <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[drivers_FECAECCE780F47A5B91AC4F83E1C6FE3]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
           </metadata-record>
           <metadata-record class='column'>
+            <remote-name>raceId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[raceId (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>raceId</remote-alias>
+            <ordinal>64</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>driverId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[driverId (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>driverId</remote-alias>
+            <ordinal>65</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>stop</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[stop (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>stop</remote-alias>
+            <ordinal>66</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lap</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[lap (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>lap</remote-alias>
+            <ordinal>67</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>time</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[time (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>time</remote-alias>
+            <ordinal>68</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>duration</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[duration (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>duration</remote-alias>
+            <ordinal>69</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>milliseconds</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[milliseconds (pit_stops1)]</local-name>
+            <parent-name>[pit_stops1]</parent-name>
+            <remote-alias>milliseconds</remote-alias>
+            <ordinal>70</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>raceId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[raceId (pit_stops)]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>raceId</remote-alias>
+            <ordinal>72</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>driverId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[driverId (pit_stops)]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>driverId</remote-alias>
+            <ordinal>73</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>stop</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[stop]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>stop</remote-alias>
+            <ordinal>74</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lap</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[lap]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>lap</remote-alias>
+            <ordinal>75</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>time</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[time]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>time</remote-alias>
+            <ordinal>76</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>duration</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[duration]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>duration</remote-alias>
+            <ordinal>77</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>milliseconds</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[milliseconds]</local-name>
+            <parent-name>[pit_stops]</parent-name>
+            <remote-alias>milliseconds</remote-alias>
+            <ordinal>78</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
             <remote-name>ConstructorID</remote-name>
             <remote-type>130</remote-type>
             <local-name>[ConstructorID (vw_constructordetails)]</local-name>
             <parent-name>[vw_constructordetails]</parent-name>
             <remote-alias>ConstructorID</remote-alias>
-            <ordinal>64</ordinal>
+            <ordinal>80</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1292,7 +1582,7 @@
             <local-name>[ConstructorName]</local-name>
             <parent-name>[vw_constructordetails]</parent-name>
             <remote-alias>ConstructorName</remote-alias>
-            <ordinal>65</ordinal>
+            <ordinal>81</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1311,7 +1601,7 @@
             <local-name>[Nationality]</local-name>
             <parent-name>[vw_constructordetails]</parent-name>
             <remote-alias>Nationality</remote-alias>
-            <ordinal>66</ordinal>
+            <ordinal>82</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1330,7 +1620,7 @@
             <local-name>[ConstructorID (WorldChampionsConstructor)]</local-name>
             <parent-name>[WorldChampionsConstructor]</parent-name>
             <remote-alias>ConstructorID</remote-alias>
-            <ordinal>68</ordinal>
+            <ordinal>84</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1349,7 +1639,7 @@
             <local-name>[name (WorldChampionsConstructor)]</local-name>
             <parent-name>[WorldChampionsConstructor]</parent-name>
             <remote-alias>name</remote-alias>
-            <ordinal>69</ordinal>
+            <ordinal>85</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1368,7 +1658,7 @@
             <local-name>[TotalConstructorChampionships]</local-name>
             <parent-name>[WorldChampionsConstructor]</parent-name>
             <remote-alias>TotalConstructorChampionships</remote-alias>
-            <ordinal>70</ordinal>
+            <ordinal>86</ordinal>
             <local-type>real</local-type>
             <aggregation>Sum</aggregation>
             <precision>23</precision>
@@ -1386,7 +1676,7 @@
             <local-name>[DriverID (vw_driverdetails)]</local-name>
             <parent-name>[vw_driverdetails]</parent-name>
             <remote-alias>DriverID</remote-alias>
-            <ordinal>71</ordinal>
+            <ordinal>87</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1405,7 +1695,7 @@
             <local-name>[DriverName]</local-name>
             <parent-name>[vw_driverdetails]</parent-name>
             <remote-alias>DriverName</remote-alias>
-            <ordinal>72</ordinal>
+            <ordinal>88</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1424,7 +1714,7 @@
             <local-name>[DateOfBirth]</local-name>
             <parent-name>[vw_driverdetails]</parent-name>
             <remote-alias>DateOfBirth</remote-alias>
-            <ordinal>73</ordinal>
+            <ordinal>89</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -1437,7 +1727,7 @@
             <local-name>[Nationality (vw_driverdetails)]</local-name>
             <parent-name>[vw_driverdetails]</parent-name>
             <remote-alias>Nationality</remote-alias>
-            <ordinal>74</ordinal>
+            <ordinal>90</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1456,7 +1746,7 @@
             <local-name>[DriverID (WorldChampionsDriver)]</local-name>
             <parent-name>[WorldChampionsDriver]</parent-name>
             <remote-alias>DriverID</remote-alias>
-            <ordinal>76</ordinal>
+            <ordinal>92</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1475,7 +1765,7 @@
             <local-name>[TotalWorldChampionships]</local-name>
             <parent-name>[WorldChampionsDriver]</parent-name>
             <remote-alias>TotalWorldChampionships</remote-alias>
-            <ordinal>77</ordinal>
+            <ordinal>93</ordinal>
             <local-type>real</local-type>
             <aggregation>Sum</aggregation>
             <precision>23</precision>
@@ -1488,12 +1778,145 @@
             <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[WorldChampionsDriver_30ECF7BF164643A987DCC55A84F53DB3]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
           </metadata-record>
           <metadata-record class='column'>
+            <remote-name>raceId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[raceId (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>raceId</remote-alias>
+            <ordinal>95</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>driverId</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[driverId (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>driverId</remote-alias>
+            <ordinal>96</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>stop</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[stop (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>stop</remote-alias>
+            <ordinal>97</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lap</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[lap (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>lap</remote-alias>
+            <ordinal>98</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>time</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[time (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>time</remote-alias>
+            <ordinal>99</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>duration</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[duration (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>duration</remote-alias>
+            <ordinal>100</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>milliseconds</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[milliseconds (pit_stops2)]</local-name>
+            <parent-name>[pit_stops2]</parent-name>
+            <remote-alias>milliseconds</remote-alias>
+            <ordinal>101</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
             <remote-name>raceid</remote-name>
             <remote-type>130</remote-type>
             <local-name>[raceid]</local-name>
             <parent-name>[vw_laptimesdata]</parent-name>
             <remote-alias>raceid</remote-alias>
-            <ordinal>79</ordinal>
+            <ordinal>103</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1512,7 +1935,7 @@
             <local-name>[driverid]</local-name>
             <parent-name>[vw_laptimesdata]</parent-name>
             <remote-alias>driverid</remote-alias>
-            <ordinal>80</ordinal>
+            <ordinal>104</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1531,7 +1954,7 @@
             <local-name>[total_time]</local-name>
             <parent-name>[vw_laptimesdata]</parent-name>
             <remote-alias>total_time</remote-alias>
-            <ordinal>81</ordinal>
+            <ordinal>105</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1550,7 +1973,7 @@
             <local-name>[RaceDriverID (vw_laptimesdata)]</local-name>
             <parent-name>[vw_laptimesdata]</parent-name>
             <remote-alias>RaceDriverID</remote-alias>
-            <ordinal>82</ordinal>
+            <ordinal>106</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1569,7 +1992,7 @@
             <local-name>[DriverID (vw_driverdetails2)]</local-name>
             <parent-name>[vw_driverdetails2]</parent-name>
             <remote-alias>DriverID</remote-alias>
-            <ordinal>83</ordinal>
+            <ordinal>107</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1588,7 +2011,7 @@
             <local-name>[DriverName (vw_driverdetails2)]</local-name>
             <parent-name>[vw_driverdetails2]</parent-name>
             <remote-alias>DriverName</remote-alias>
-            <ordinal>84</ordinal>
+            <ordinal>108</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1607,7 +2030,7 @@
             <local-name>[DateOfBirth (vw_driverdetails2)]</local-name>
             <parent-name>[vw_driverdetails2]</parent-name>
             <remote-alias>DateOfBirth</remote-alias>
-            <ordinal>85</ordinal>
+            <ordinal>109</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -1620,7 +2043,7 @@
             <local-name>[Nationality (vw_driverdetails2)]</local-name>
             <parent-name>[vw_driverdetails2]</parent-name>
             <remote-alias>Nationality</remote-alias>
-            <ordinal>86</ordinal>
+            <ordinal>110</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1639,7 +2062,7 @@
             <local-name>[qualifyId]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>qualifyId</remote-alias>
-            <ordinal>88</ordinal>
+            <ordinal>112</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1658,7 +2081,7 @@
             <local-name>[raceId]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>raceId</remote-alias>
-            <ordinal>89</ordinal>
+            <ordinal>113</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1677,7 +2100,7 @@
             <local-name>[driverId]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>driverId</remote-alias>
-            <ordinal>90</ordinal>
+            <ordinal>114</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1696,7 +2119,7 @@
             <local-name>[constructorId]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>constructorId</remote-alias>
-            <ordinal>91</ordinal>
+            <ordinal>115</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1715,7 +2138,7 @@
             <local-name>[number]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>number</remote-alias>
-            <ordinal>92</ordinal>
+            <ordinal>116</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1734,7 +2157,7 @@
             <local-name>[position]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>position</remote-alias>
-            <ordinal>93</ordinal>
+            <ordinal>117</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1753,7 +2176,7 @@
             <local-name>[q1]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>q1</remote-alias>
-            <ordinal>94</ordinal>
+            <ordinal>118</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1772,7 +2195,7 @@
             <local-name>[q2]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>q2</remote-alias>
-            <ordinal>95</ordinal>
+            <ordinal>119</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1791,7 +2214,7 @@
             <local-name>[q3]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>q3</remote-alias>
-            <ordinal>96</ordinal>
+            <ordinal>120</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1810,7 +2233,7 @@
             <local-name>[RaceDriverConstructorID (vw_qualifying)]</local-name>
             <parent-name>[vw_qualifying]</parent-name>
             <remote-alias>RaceDriverConstructorID</remote-alias>
-            <ordinal>97</ordinal>
+            <ordinal>121</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>767</width>
@@ -1829,7 +2252,7 @@
             <local-name>[ConstructorID (vw_constructordetails1)]</local-name>
             <parent-name>[vw_constructordetails1]</parent-name>
             <remote-alias>ConstructorID</remote-alias>
-            <ordinal>99</ordinal>
+            <ordinal>123</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1848,7 +2271,7 @@
             <local-name>[ConstructorName (vw_constructordetails1)]</local-name>
             <parent-name>[vw_constructordetails1]</parent-name>
             <remote-alias>ConstructorName</remote-alias>
-            <ordinal>100</ordinal>
+            <ordinal>124</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1867,7 +2290,7 @@
             <local-name>[Nationality (vw_constructordetails1)]</local-name>
             <parent-name>[vw_constructordetails1]</parent-name>
             <remote-alias>Nationality</remote-alias>
-            <ordinal>101</ordinal>
+            <ordinal>125</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1886,7 +2309,7 @@
             <local-name>[DriverID (vw_driverdetails1)]</local-name>
             <parent-name>[vw_driverdetails1]</parent-name>
             <remote-alias>DriverID</remote-alias>
-            <ordinal>102</ordinal>
+            <ordinal>126</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1905,7 +2328,7 @@
             <local-name>[DriverName (vw_driverdetails1)]</local-name>
             <parent-name>[vw_driverdetails1]</parent-name>
             <remote-alias>DriverName</remote-alias>
-            <ordinal>103</ordinal>
+            <ordinal>127</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1924,7 +2347,7 @@
             <local-name>[DateOfBirth (vw_driverdetails1)]</local-name>
             <parent-name>[vw_driverdetails1]</parent-name>
             <remote-alias>DateOfBirth</remote-alias>
-            <ordinal>104</ordinal>
+            <ordinal>128</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -1937,7 +2360,7 @@
             <local-name>[Nationality (vw_driverdetails1)]</local-name>
             <parent-name>[vw_driverdetails1]</parent-name>
             <remote-alias>Nationality</remote-alias>
-            <ordinal>105</ordinal>
+            <ordinal>129</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1956,7 +2379,7 @@
             <local-name>[year]</local-name>
             <parent-name>[vw_seasons]</parent-name>
             <remote-alias>year</remote-alias>
-            <ordinal>106</ordinal>
+            <ordinal>130</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -1969,7 +2392,7 @@
             <local-name>[url]</local-name>
             <parent-name>[vw_seasons]</parent-name>
             <remote-alias>url</remote-alias>
-            <ordinal>107</ordinal>
+            <ordinal>131</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -1988,7 +2411,7 @@
             <local-name>[statusId]</local-name>
             <parent-name>[vw_status]</parent-name>
             <remote-alias>statusId</remote-alias>
-            <ordinal>109</ordinal>
+            <ordinal>133</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -2007,7 +2430,7 @@
             <local-name>[status]</local-name>
             <parent-name>[vw_status]</parent-name>
             <remote-alias>status</remote-alias>
-            <ordinal>110</ordinal>
+            <ordinal>134</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <width>255</width>
@@ -2123,6 +2546,9 @@
       <_.fcp.ObjectModelTableType.true...column caption='circuits' datatype='table' name='[__tableau_internal_object_id__].[circuits_4887BEC77F59423F8BC7C177FA4DADBF]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='constructors' datatype='table' name='[__tableau_internal_object_id__].[constructors_65E350FE20F249048C0D731CB4118FFA]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='drivers' datatype='table' name='[__tableau_internal_object_id__].[drivers_FECAECCE780F47A5B91AC4F83E1C6FE3]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='pit_stops' datatype='table' name='[__tableau_internal_object_id__].[pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='pit_stops1' datatype='table' name='[__tableau_internal_object_id__].[pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='pit_stops2' datatype='table' name='[__tableau_internal_object_id__].[pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='vw_circuitdetails' datatype='table' name='[__tableau_internal_object_id__].[vw_circuitdetails_29DD3551FA814909B3CE93BA28649D66]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='vw_constructordetails' datatype='table' name='[__tableau_internal_object_id__].[vw_constructordetails_00FFF63EE4794E2E8936CA3553AB2C3A]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='vw_constructordetails1' datatype='table' name='[__tableau_internal_object_id__].[vw_constructordetails_01EF76464AC94DE79EF85ECDE92C59F0]' role='measure' type='quantitative' />
@@ -2144,13 +2570,25 @@
       <column caption='Country1' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
       <column caption='Dob' datatype='string' name='[dob]' role='dimension' type='nominal' />
       <column datatype='integer' datatype-customized='true' name='[driverId (drivers)]' role='dimension' type='ordinal' />
+      <column caption='driverId (pit stops)' datatype='integer' datatype-customized='true' name='[driverId (pit_stops)]' role='dimension' type='ordinal' />
+      <column caption='driverId (pit stops1)' datatype='integer' datatype-customized='true' name='[driverId (pit_stops1)]' role='dimension' type='ordinal' />
+      <column caption='driverId (pit stops2)' datatype='integer' datatype-customized='true' name='[driverId (pit_stops2)]' role='dimension' type='ordinal' />
       <column caption='Driver Id' datatype='integer' datatype-customized='true' name='[driverId]' role='dimension' type='ordinal' />
       <column caption='Driver Ref' datatype='string' name='[driverRef]' role='dimension' type='nominal' />
       <column caption='Driverid' datatype='integer' datatype-customized='true' name='[driverid]' role='dimension' type='ordinal' />
+      <column caption='Duration (Pit Stops1)' datatype='string' name='[duration (pit_stops1)]' role='dimension' type='nominal' />
+      <column caption='Duration (Pit Stops2)' datatype='string' name='[duration (pit_stops2)]' role='dimension' type='nominal' />
+      <column caption='Duration' datatype='string' name='[duration]' role='dimension' type='nominal' />
       <column caption='Forename' datatype='string' name='[forename]' role='dimension' type='nominal' />
+      <column caption='Lap (Pit Stops1)' datatype='string' name='[lap (pit_stops1)]' role='dimension' type='nominal' />
+      <column caption='Lap (Pit Stops2)' datatype='string' name='[lap (pit_stops2)]' role='dimension' type='nominal' />
+      <column caption='Lap' datatype='string' name='[lap]' role='dimension' type='nominal' />
       <column caption='Lat' datatype='string' name='[lat]' role='dimension' type='nominal' />
       <column caption='Lng' datatype='string' name='[lng]' role='dimension' type='nominal' />
       <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal' />
+      <column caption='Milliseconds (Pit Stops1)' datatype='string' name='[milliseconds (pit_stops1)]' role='dimension' type='nominal' />
+      <column caption='Milliseconds (Pit Stops2)' datatype='string' name='[milliseconds (pit_stops2)]' role='dimension' type='nominal' />
+      <column caption='Milliseconds' datatype='string' name='[milliseconds]' role='dimension' type='nominal' />
       <column caption='Name (Constructors)' datatype='string' name='[name (constructors)]' role='dimension' type='nominal' />
       <column caption='Name' datatype='string' name='[name]' role='dimension' type='nominal' />
       <column caption='Nationality (Drivers)' datatype='string' name='[nationality (drivers)]' role='dimension' type='nominal' />
@@ -2162,11 +2600,20 @@
       <column caption='Q21' datatype='string' name='[q2]' role='dimension' type='nominal' />
       <column caption='Q31' datatype='string' name='[q3]' role='dimension' type='nominal' />
       <column caption='Qualify Id' datatype='integer' datatype-customized='true' name='[qualifyId]' role='dimension' type='ordinal' />
+      <column caption='raceId (pit stops)' datatype='integer' datatype-customized='true' name='[raceId (pit_stops)]' role='dimension' type='ordinal' />
+      <column caption='raceId (pit stops1)' datatype='integer' datatype-customized='true' name='[raceId (pit_stops1)]' role='dimension' type='ordinal' />
+      <column caption='raceId (pit stops2)' datatype='integer' datatype-customized='true' name='[raceId (pit_stops2)]' role='dimension' type='ordinal' />
       <column caption='Race Id' datatype='integer' datatype-customized='true' name='[raceId]' role='dimension' type='ordinal' />
       <column caption='Raceid' datatype='integer' datatype-customized='true' name='[raceid]' role='dimension' type='ordinal' />
       <column caption='Status Id' datatype='integer' datatype-customized='true' name='[statusId]' role='dimension' type='ordinal' />
       <column caption='Status' datatype='string' name='[status]' role='dimension' type='nominal' />
+      <column caption='Stop (Pit Stops1)' datatype='string' name='[stop (pit_stops1)]' role='dimension' type='nominal' />
+      <column caption='Stop (Pit Stops2)' datatype='string' name='[stop (pit_stops2)]' role='dimension' type='nominal' />
+      <column caption='Stop' datatype='string' name='[stop]' role='dimension' type='nominal' />
       <column caption='Surname' datatype='string' name='[surname]' role='dimension' type='nominal' />
+      <column caption='Time (Pit Stops1)' datatype='string' name='[time (pit_stops1)]' role='dimension' type='nominal' />
+      <column caption='Time (Pit Stops2)' datatype='string' name='[time (pit_stops2)]' role='dimension' type='nominal' />
+      <column caption='Time' datatype='string' name='[time]' role='dimension' type='nominal' />
       <column caption='Total Time' datatype='string' datatype-customized='true' name='[total_time]' role='dimension' type='nominal' />
       <column caption='Url (Circuits)' datatype='string' name='[url (circuits)]' role='dimension' semantic-role='[URL]' type='nominal' />
       <column caption='Url (Constructors)' datatype='string' name='[url (constructors)]' role='dimension' type='nominal' />
@@ -2477,6 +2924,21 @@
               <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='drivers' table='[drivers]' type='table' />
             </properties>
           </object>
+          <object caption='pit_stops' id='pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93'>
+            <properties context=''>
+              <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops' table='[pit_stops]' type='table' />
+            </properties>
+          </object>
+          <object caption='pit_stops1' id='pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9'>
+            <properties context=''>
+              <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops1' table='[pit_stops]' type='table' />
+            </properties>
+          </object>
+          <object caption='pit_stops2' id='pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C'>
+            <properties context=''>
+              <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='pit_stops2' table='[pit_stops]' type='table' />
+            </properties>
+          </object>
           <object caption='vw_circuitdetails' id='vw_circuitdetails_29DD3551FA814909B3CE93BA28649D66'>
             <properties context=''>
               <relation connection='mysql.1gdsvvd0vbdddu1e5nr5x1alvuv3' name='vw_circuitdetails' table='[vw_circuitdetails]' type='table' />
@@ -2615,6 +3077,30 @@
             </expression>
             <first-end-point object-id='vw_totalraceresults_13BFE705E44742F49A285173B9CE2FFC' />
             <second-end-point object-id='drivers_FECAECCE780F47A5B91AC4F83E1C6FE3' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[RaceID]' />
+              <expression op='[raceId (pit_stops)]' />
+            </expression>
+            <first-end-point object-id='vw_totalraceresults_13BFE705E44742F49A285173B9CE2FFC' />
+            <second-end-point object-id='pit_stops_3D5079F86C1C4C35BC33ADD9E2944A93' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[driverId (drivers)]' />
+              <expression op='[driverId (pit_stops1)]' />
+            </expression>
+            <first-end-point object-id='drivers_FECAECCE780F47A5B91AC4F83E1C6FE3' />
+            <second-end-point object-id='pit_stops_8CBD4F69F9AD4AC4B9089F5B21C0ADF9' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[DriverID (vw_driverdetails)]' />
+              <expression op='[driverId (pit_stops2)]' />
+            </expression>
+            <first-end-point object-id='vw_driverdetails_AC8421B6D99744EDA584E02EFB053D4F' />
+            <second-end-point object-id='pit_stops_B6A36F3FE1DC48A2839990B87AE1B10C' />
           </relationship>
           <relationship>
             <expression op='='>
@@ -3685,6 +4171,26 @@
       </table>
       <simple-id uuid='{6C31DEF2-9D10-49BA-B772-6F36CBB9F43B}' />
     </worksheet>
+    <worksheet name='Sheet 14'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{12C180BE-EC77-4429-9261-22A22B2AF34A}' />
+    </worksheet>
     <worksheet name='Totals'>
       <layout-options>
         <title>
@@ -4166,7 +4672,7 @@
       </cards>
       <simple-id uuid='{400E05CD-4FBC-4B2C-AF6A-6B7A9A3DF0CD}' />
     </window>
-    <window class='worksheet' maximized='true' name='Driver Details (2)'>
+    <window class='worksheet' name='Driver Details (2)'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4192,15 +4698,6 @@
           </strip>
         </edge>
       </cards>
-      <viewpoint>
-        <highlight>
-          <color-one-way>
-            <field>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLapSpeed:nk]</field>
-            <field>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLapTime:nk]</field>
-            <field>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:Laps:ok]</field>
-          </color-one-way>
-        </highlight>
-      </viewpoint>
       <simple-id uuid='{A23448B0-55FE-4736-BE39-14E189330327}' />
     </window>
     <window class='worksheet' name='Constructor Details'>
@@ -4478,385 +4975,28 @@
       <active id='-1' />
       <simple-id uuid='{473435B4-2CEC-4F72-8385-A3CF0160BD8A}' />
     </window>
+    <window class='worksheet' maximized='true' name='Sheet 14'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{171C59BD-F9AE-4995-A5A6-A07B14610835}' />
+    </window>
   </windows>
-  <thumbnails>
-    <thumbnail height='384' name='Driver Details (2)' width='384'>
-      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
-      fwHbslLkdU1BpgAAAABJRU5ErkJggg==
-    </thumbnail>
-  </thumbnails>
 </workbook>

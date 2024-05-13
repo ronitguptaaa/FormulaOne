@@ -2059,6 +2059,12 @@
       <column caption='Total # Constructors' datatype='integer' name='[Calculation_4368421286237523970]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='COUNTD([ConstructorID])' />
       </column>
+      <column caption='Lap Speed Range' datatype='string' name='[Calculation_5811473124144173056]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [FastestLapSpeed] &lt; &apos;150&apos; THEN &apos;Blue&apos;&#10;ELSEIF [FastestLapSpeed] &gt;= &apos;150&apos; AND [FastestLapSpeed] &lt;= &apos;250&apos; THEN &apos;Yellow&apos;&#10;ELSE &apos;Green&apos;&#10;END' />
+      </column>
+      <column caption='Max Lap speed' datatype='string' name='[Calculation_5811473124144824321]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [FastestLapSpeed] = {FIXED : MAX([FastestLapSpeed])} THEN &apos;Red&apos;&#10;END' />
+      </column>
       <column datatype='integer' datatype-customized='true' name='[CircuitID (CircuitDetails)]' role='dimension' type='ordinal' />
       <column caption='CircuitID (vw circuitdetails)' datatype='integer' datatype-customized='true' name='[CircuitID (vw_circuitdetails)]' role='dimension' type='ordinal' />
       <column caption='Circuit ID' datatype='integer' datatype-customized='true' name='[CircuitID]' role='dimension' type='ordinal' />
@@ -2170,6 +2176,8 @@
         <calculation class='tableau' formula='SUM(IF [ConstructorPosition] = 1 THEN 1 ELSE 0 END)' />
       </column>
       <column caption='Year1' datatype='date' datatype-customized='true' name='[year]' role='dimension' type='ordinal' />
+      <column-instance column='[Calculation_5811473124144173056]' derivation='None' name='[none:Calculation_5811473124144173056:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Forecast Indicator]' derivation='None' forecast-column-base='[Forecast Indicator]' forecast-column-type='forecast-indicator' name='[none:Forecast Indicator:nk]' pivot='key' type='nominal' />
       <column-instance column='[Year]' derivation='Year' name='[yr:Year:ok]' pivot='key' type='ordinal' />
       <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' rowDisplayCount='100' show-aliased-fields='true' show-structure='true' />
       <style>
@@ -2398,11 +2406,30 @@
               <bucket>2020</bucket>
             </map>
           </encoding>
+          <encoding attr='color' field='[none:Calculation_5811473124144173056:nk]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;Blue&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Green&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;Yellow&quot;</bucket>
+            </map>
+          </encoding>
         </style-rule>
       </style>
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;India&quot;' />
       </semantic-values>
+      <default-sorts>
+        <manual-sort column='[none:Forecast Indicator:nk]' direction='ASC'>
+          <dictionary>
+            <bucket>&quot;Actual&quot;</bucket>
+            <bucket>&quot;Estimate&quot;</bucket>
+          </dictionary>
+        </manual-sort>
+      </default-sorts>
       <field-sort-info field-sort-order-type='custom-order'>
         <field-sort-custom-order field='CircuitID (CircuitDetails)' />
         <field-sort-custom-order field='CircuitName (CircuitDetails)' />
@@ -3034,6 +3061,7 @@
             <encodings>
               <size column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalConstructorChampionships:qk]' />
               <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:ConstructorName:nk]' />
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalConstructorChampionships:qk]' />
               <color column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:ConstructorName:nk]' />
             </encodings>
             <style>
@@ -3071,16 +3099,25 @@
           </datasources>
           <datasource-dependencies datasource='federated.0diut5p134ozrr11vni9f04mmx2i'>
             <column caption='Constructor Position' datatype='integer' datatype-customized='true' name='[ConstructorPosition]' role='dimension' type='ordinal' />
+            <column datatype='date' datatype-customized='true' name='[Year]' role='dimension' type='ordinal' />
             <column caption='Name (Constructors)' datatype='string' name='[name (constructors)]' role='dimension' type='nominal' />
             <column-instance column='[name (constructors)]' derivation='None' name='[none:name (constructors):nk]' pivot='key' type='nominal' />
             <column-instance column='[wins (copy)_3285235206772793348]' derivation='User' name='[usr:wins (copy)_3285235206772793348:qk]' pivot='key' type='quantitative' />
             <column caption='Constructors Wins' datatype='integer' name='[wins (copy)_3285235206772793348]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='SUM(IF [ConstructorPosition] = 1 THEN 1 ELSE 0 END)' />
             </column>
+            <column-instance column='[Year]' derivation='Year' name='[yr:Year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
+          <filter class='quantitative' column='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:wins (copy)_3285235206772793348:qk]' included-values='in-range'>
+            <min>1</min>
+            <max>485</max>
+          </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:name (constructors):nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:wins (copy)_3285235206772793348:qk]' shelf='rows' />
           </shelf-sorts>
+          <slices>
+            <column>[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:wins (copy)_3285235206772793348:qk]</column>
+          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -3100,7 +3137,14 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[yr:Year:ok]' />
+            </encodings>
             <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
               <style-rule element='pane'>
                 <format attr='minheight' value='-1' />
                 <format attr='maxheight' value='-1' />
@@ -3131,17 +3175,24 @@
             <column caption='Driver Name' datatype='string' name='[DriverName]' role='dimension' type='nominal' />
             <column caption='Driver Points' datatype='integer' datatype-customized='true' name='[DriverPoints]' role='dimension' type='ordinal' />
             <column caption='Driver Position' datatype='integer' datatype-customized='true' name='[DriverPosition]' role='dimension' type='ordinal' />
+            <column caption='Fastest Lap Speed' datatype='string' name='[FastestLapSpeed]' role='dimension' type='nominal' />
+            <column caption='Fastest Lap Time' datatype='string' name='[FastestLapTime]' role='dimension' type='nominal' />
+            <column caption='Fastest Lap' datatype='string' name='[FastestLap]' role='dimension' type='nominal' />
             <column datatype='string' name='[Nationality]' role='dimension' type='nominal' />
             <column caption='Race Date' datatype='date' datatype-customized='true' name='[RaceDate]' role='dimension' type='ordinal' />
             <column caption='Race Name' datatype='string' name='[RaceName]' role='dimension' type='nominal' />
             <column-instance column='[DriverName]' derivation='None' name='[none:DriverName:nk]' pivot='key' type='nominal' />
             <column-instance column='[DriverPoints]' derivation='None' name='[none:DriverPoints:ok]' pivot='key' type='ordinal' />
             <column-instance column='[DriverPosition]' derivation='None' name='[none:DriverPosition:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[FastestLap]' derivation='None' name='[none:FastestLap:nk]' pivot='key' type='nominal' />
+            <column-instance column='[FastestLapSpeed]' derivation='None' name='[none:FastestLapSpeed:nk]' pivot='key' type='nominal' />
+            <column-instance column='[FastestLapTime]' derivation='None' name='[none:FastestLapTime:nk]' pivot='key' type='nominal' />
             <column-instance column='[Nationality]' derivation='None' name='[none:Nationality:nk]' pivot='key' type='nominal' />
             <column-instance column='[RaceName]' derivation='None' name='[none:RaceName:nk]' pivot='key' type='nominal' />
             <column-instance column='[RaceDate]' derivation='Day-Trunc' name='[tdy:RaceDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[DateOfBirth]' derivation='Week-Trunc' name='[twk:DateOfBirth:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
+          <natural-sort column='[federated.0diut5p134ozrr11vni9f04mmx2i].[tdy:RaceDate:ok]' direction='DESC' />
           <aggregation value='true' />
         </view>
         <style>
@@ -3162,10 +3213,76 @@
             <mark class='Automatic' />
           </pane>
         </panes>
-        <rows>([federated.0diut5p134ozrr11vni9f04mmx2i].[tdy:RaceDate:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:RaceName:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:Nationality:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[twk:DateOfBirth:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverPoints:ok] / [federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverPosition:ok]))))))</rows>
+        <rows>([federated.0diut5p134ozrr11vni9f04mmx2i].[tdy:RaceDate:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:RaceName:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:Nationality:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[twk:DateOfBirth:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverPoints:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverPosition:ok] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLap:nk] / ([federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLapSpeed:nk] / [federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLapTime:nk])))))))))</rows>
         <cols />
       </table>
       <simple-id uuid='{0D54BFB4-1418-4E05-89A4-3CB7F9FEDAE7}' />
+    </worksheet>
+    <worksheet name='Driver Details (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontname='Arial' fontsize='12'>Driver Details</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='formulaOne' name='federated.0diut5p134ozrr11vni9f04mmx2i' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0diut5p134ozrr11vni9f04mmx2i'>
+            <column caption='Lap Speed Range' datatype='string' name='[Calculation_5811473124144173056]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [FastestLapSpeed] &lt; &apos;150&apos; THEN &apos;Blue&apos;&#10;ELSEIF [FastestLapSpeed] &gt;= &apos;150&apos; AND [FastestLapSpeed] &lt;= &apos;250&apos; THEN &apos;Yellow&apos;&#10;ELSE &apos;Green&apos;&#10;END' />
+            </column>
+            <column caption='Fastest Lap Speed' datatype='string' name='[FastestLapSpeed]' role='dimension' type='nominal' />
+            <column datatype='date' datatype-customized='true' name='[Year]' role='dimension' type='ordinal' />
+            <column-instance column='[FastestLapSpeed]' derivation='CountD' name='[ctd:FastestLapSpeed:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_5811473124144173056]' derivation='None' name='[none:Calculation_5811473124144173056:nk]' pivot='key' type='nominal' />
+            <column-instance column='[FastestLapSpeed]' derivation='None' name='[none:FastestLapSpeed:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Year]' derivation='None' name='[none:Year:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Year]' derivation='Year' name='[yr:Year:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:Year:qk]' included-values='in-range'>
+            <min>#2004-01-01#</min>
+            <max>#2023-01-01#</max>
+          </filter>
+          <slices>
+            <column>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:Year:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[ctd:FastestLapSpeed:qk]' scope='cols' value='Lap Speed Count ' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:Calculation_5811473124144173056:nk]' value='132' />
+            <format attr='width' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[ctd:FastestLapSpeed:qk]' value='140' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <lod column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:FastestLapSpeed:nk]' />
+              <lod column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:Calculation_5811473124144173056:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0diut5p134ozrr11vni9f04mmx2i].[yr:Year:ok]</rows>
+        <cols>([federated.0diut5p134ozrr11vni9f04mmx2i].[none:Calculation_5811473124144173056:nk] * [federated.0diut5p134ozrr11vni9f04mmx2i].[ctd:FastestLapSpeed:qk])</cols>
+      </table>
+      <simple-id uuid='{D5528B32-4964-4421-AAE7-81B22CCEDC6B}' />
     </worksheet>
     <worksheet name='Driver World Champion'>
       <layout-options>
@@ -3229,6 +3346,7 @@
               <color column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' />
               <size column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' />
               <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' />
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' />
             </encodings>
             <style>
               <style-rule element='mark'>
@@ -3250,6 +3368,91 @@
         <cols />
       </table>
       <simple-id uuid='{C365D19C-3404-4857-A641-A13C5E53ECB8}' />
+    </worksheet>
+    <worksheet name='Driver World Champion (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontname='Arial' fontsize='12'>World Champions - Drivers</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='formulaOne' name='federated.0diut5p134ozrr11vni9f04mmx2i' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0diut5p134ozrr11vni9f04mmx2i'>
+            <column caption='Driver Name' datatype='string' name='[DriverName]' role='dimension' type='nominal' />
+            <column caption='Total World Championships' datatype='integer' datatype-customized='true' name='[TotalWorldChampionships]' role='measure' type='quantitative' />
+            <column-instance column='[DriverName]' derivation='None' name='[none:DriverName:nk]' pivot='key' type='nominal' />
+            <column-instance column='[TotalWorldChampionships]' derivation='Sum' name='[sum:TotalWorldChampionships:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' included-values='in-range'>
+            <min>1</min>
+            <max>7</max>
+          </filter>
+          <slices>
+            <column>[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='font-weight' data-class='subtotal' scope='rows' value='normal' />
+            <format attr='font-weight' data-class='total' scope='rows' value='normal' />
+            <format attr='font-weight' data-class='subtotal' scope='cols' value='normal' />
+            <format attr='font-weight' data-class='total' scope='cols' value='normal' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='font-weight' data-class='total' scope='cols' value='normal' />
+            <format attr='font-weight' data-class='subtotal' scope='cols' value='bold' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='font-weight' scope='rows' value='normal' />
+            <format attr='font-weight' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' value='normal' />
+            <format attr='color' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' value='#666666' />
+          </style-rule>
+          <style-rule element='legend-title-text'>
+            <format attr='color' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' value='Driver Name'>
+              <formatted-text>
+                <run>Driver Name</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <color column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' />
+              <size column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' />
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' />
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[sum:TotalWorldChampionships:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-line-first' value='true' />
+                <format attr='mark-labels-line-last' value='true' />
+                <format attr='mark-labels-range-min' value='true' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-range-scope' value='pane' />
+                <format attr='mark-labels-range-field' value='' />
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-color' value='#4e79a7' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{1843522E-D03A-41A8-BA3D-88A002C910D6}' />
     </worksheet>
     <worksheet name='Drivers and Wins'>
       <layout-options>
@@ -3273,14 +3476,90 @@
             <column-instance column='[DriverName]' derivation='None' name='[none:DriverName:nk]' pivot='key' type='nominal' />
             <column-instance column='[Calculation_3285235206765801475]' derivation='User' name='[usr:Calculation_3285235206765801475:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
-          <shelf-sorts>
-            <shelf-sort-v2 dimension-to-sort='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' shelf='rows' />
-          </shelf-sorts>
+          <computed-sort column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' direction='DESC' using='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' />
+          <filter class='quantitative' column='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' included-values='in-range'>
+            <min>1</min>
+            <max>103</max>
+          </filter>
+          <slices>
+            <column>[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]</column>
+          </slices>
           <aggregation value='true' />
         </view>
         <style>
-          <style-rule element='axis'>
-            <format attr='display' class='0' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' scope='cols' value='false' />
+          <style-rule element='mark'>
+            <encoding attr='size-bar' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' field-type='quantitative' max-size='1' min-size='0.005' type='centersize' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]</rows>
+        <cols>[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]</cols>
+      </table>
+      <simple-id uuid='{19BBDF12-3B2C-40D8-8228-402C34377523}' />
+    </worksheet>
+    <worksheet name='Drivers and Wins (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontname='Arial' fontsize='12'>Driver Wins</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='formulaOne' name='federated.0diut5p134ozrr11vni9f04mmx2i' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0diut5p134ozrr11vni9f04mmx2i'>
+            <column caption='Driver Wins' datatype='integer' name='[Calculation_3285235206765801475]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM(IF [DriverPosition] = 1 THEN 1 ELSE 0 END)' />
+            </column>
+            <column caption='Driver Name' datatype='string' name='[DriverName]' role='dimension' type='nominal' />
+            <column caption='Driver Position' datatype='integer' datatype-customized='true' name='[DriverPosition]' role='dimension' type='ordinal' />
+            <column datatype='date' datatype-customized='true' name='[Year]' role='dimension' type='ordinal' />
+            <column-instance column='[DriverName]' derivation='None' name='[none:DriverName:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_3285235206765801475]' derivation='User' name='[usr:Calculation_3285235206765801475:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Year]' derivation='Year' name='[yr:Year:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <computed-sort column='[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]' direction='DESC' using='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' />
+          <filter class='quantitative' column='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' included-values='in-range'>
+            <min>1</min>
+            <max>15</max>
+          </filter>
+          <slices>
+            <column>[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='color' data-class='subtotal' scope='cols' value='#ffffff' />
+            <format attr='font-family' data-class='subtotal' scope='cols' value='Arial' />
+            <format attr='color' data-class='total' scope='rows' value='#ffffff' />
+            <format attr='color' data-class='subtotal' scope='rows' value='#ffffff' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='background-color' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[yr:Year:ok]' value='#ffffff' />
+            <format attr='color' data-class='total' scope='cols' value='#ffffff' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[yr:Year:ok]' value='iyyyy' />
           </style-rule>
           <style-rule element='mark'>
             <encoding attr='size-bar' field='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' field-type='quantitative' max-size='1' min-size='0.005' type='centersize' />
@@ -3296,15 +3575,20 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <lod column='[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]' />
+              <text column='[federated.0diut5p134ozrr11vni9f04mmx2i].[yr:Year:ok]' />
             </encodings>
-            <dropline drop-when='selected' haslabel='false' x-axis='true' y-axis='false' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.0diut5p134ozrr11vni9f04mmx2i].[none:DriverName:nk]</rows>
         <cols>[federated.0diut5p134ozrr11vni9f04mmx2i].[usr:Calculation_3285235206765801475:qk]</cols>
       </table>
-      <simple-id uuid='{19BBDF12-3B2C-40D8-8228-402C34377523}' />
+      <simple-id uuid='{7D6463EB-9212-48D5-BC68-FCA52522086E}' />
     </worksheet>
     <worksheet name='Races Across World'>
       <layout-options>
@@ -3683,8 +3967,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2900' minheight='2900' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='45' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='99600' id='44' param='vert' type-v2='layout-flow' w='98828' x='586' y='200'>
+            <zone h='100000' id='47' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='99600' id='46' param='vert' type-v2='layout-flow' w='98828' x='586' y='200'>
                 <zone fixed-size='43' h='1275' id='23' type-v2='title' w='98828' x='586' y='200'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3873,6 +4157,29 @@
       </cards>
       <simple-id uuid='{400E05CD-4FBC-4B2C-AF6A-6B7A9A3DF0CD}' />
     </window>
+    <window class='worksheet' maximized='true' name='Driver Details (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{A23448B0-55FE-4736-BE39-14E189330327}' />
+    </window>
     <window class='worksheet' name='Constructor Details'>
       <cards>
         <edge name='left'>
@@ -3914,7 +4221,33 @@
           </strip>
         </edge>
       </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='2' />
+      </viewpoint>
       <simple-id uuid='{BC06B765-66EE-40F2-B2FB-18469050D8CB}' />
+    </window>
+    <window class='worksheet' name='Drivers and Wins (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <floating-toolbar-visibility value='2' />
+      </viewpoint>
+      <simple-id uuid='{584EF8BF-F3A9-4527-9112-20D4DD3CD6CE}' />
     </window>
     <window class='worksheet' name='Constructors Wins'>
       <cards>
@@ -3942,7 +4275,7 @@
     <window class='worksheet' name='Driver World Champion'>
       <cards>
         <edge name='left'>
-          <strip size='160'>
+          <strip size='300'>
             <card type='pages' />
             <card type='filters' />
             <card type='marks' />
@@ -3965,7 +4298,36 @@
           </strip>
         </edge>
       </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
       <simple-id uuid='{00CBEA46-38B1-4C7F-9520-D63269F80D8E}' />
+    </window>
+    <window class='worksheet' name='Driver World Champion (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='300'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{AA1DDCDB-659F-4B3D-AFA3-681D2A250F0D}' />
     </window>
     <window class='worksheet' name='Constructor World Champion'>
       <cards>
@@ -4065,7 +4427,7 @@
       </cards>
       <simple-id uuid='{047BA4BF-BAFD-430A-83FA-769BCF87968C}' />
     </window>
-    <window class='dashboard' maximized='true' name='Formula One - Dashboard'>
+    <window class='dashboard' name='Formula One - Dashboard'>
       <viewpoints>
         <viewpoint name='Complete Details Grid'>
           <zoom type='fit-width' />
